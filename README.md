@@ -1,84 +1,84 @@
-<div align="center">
-    <img width="200" src="assets/images/sonnetlogo.png" alt="logo">
+# Lullie App
 
-  <h3 align="center">Sonnet</h3>
+A Flutter application designed to help users improve their sleep quality through music therapy and mood-based playlists.
 
-  <p align="center">
-    Mood-based AI music playlist recommendation app using Flutter, OpenAI, Spotify, Audiomack! 🎵📱
-    <br />
-    <a href="https://www.youtube.com/watch?v=bxfhe53lTmk"><strong>Youtube Tutorial »</strong></a>
-    <br />
-    <br />
-    
-  </p>
-</div>
+## Features
 
-<!-- ABOUT THE PROJECT -->
+- 🎵 Mood-based music recommendations
+- 😴 Sleep tracking and analytics
+- 📊 Statistics and progress monitoring
+- 🎨 Beautiful and intuitive UI
+- 🌙 Dark mode optimized for bedtime use
+- 🎧 Seamless audio playback
+- 💾 Persistent state management
+- 📱 Cross-platform support (iOS & Android)
 
-## About The Project
+## Technologies Used
 
-<img src="assets/images/Sonnet_snippet.png" alt="screenshot" width="" >
+- Flutter
+- Dart
+- just_audio for audio playback
+- OpenAI API for music recommendations
+- SharedPreferences for local storage
+- Provider for state management
+- Google Fonts
+- SVG rendering
+- Custom animations and transitions
 
-# What it does
-This is an AI mobile app that recommends music playlists based on the mood and genres selected by the user. This app leverages the power of Flutter for the frontend, OpenAI for intelligent music recommendations, Spotify and Audiomack for seamless playlist creation and management.
-<br />
-Key Features:
-1. Single-select mood category.
-2. Multi-select genre category.
-3. Regenerate playlist with a single tap.
-4. Create and add playlists to Spotify with a click of a button.
-
-
-# Built With
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-- [Flutter](https://docs.flutter.dev/get-started/install)
-- [OpenAI](https://platform.openai.com/api-keys)
-- [Spotify](https://developer.spotify.com/dashboard)
-- [Audiomack](https://audiomack.com/labtestingapi/song/easy-lab-testing-api)
-
-# Getting started
-The project consist of the backend and also the frontend.
+## Getting Started
 
 ### Prerequisites
-- nodejs installed
-- npm
-- Flutter
- ```
-npm install npm@latest -g
+
+- Flutter SDK
+- Dart SDK
+- iOS Simulator/Android Emulator
+- OpenAI API key
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/sillymoonie/lullie-app.git
 ```
 
-### Local setup
-To run this project locally, follow these steps.
-1. Clone the project locally, change into the directory, and install the dependencies:
+2. Navigate to the project directory:
+```bash
+cd lullie-app
 ```
-git clone https://github.com/kwakyebrilliant/sonnet
 
-cd sonnet
-
-# install using:
+3. Install dependencies:
+```bash
 flutter pub get
-
 ```
 
-2. Get the necessary APIs and add them to the project
-
-
-4. Start the app
-
+4. Create a `.env` file in the root directory and add your OpenAI API key:
 ```
+token=your_openai_api_key_here
+```
+
+5. Run the app:
+```bash
 flutter run
 ```
 
+## Architecture
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement". Don't forget to give the project a star! Thanks again!
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+The app follows a clean architecture pattern with:
+- Services for business logic
+- Widgets for UI components
+- Models for data structures
+- Providers for state management
 
-# License
-Distributed under the MIT License.
+## Contributing
 
-# Contact
-- Brilliant Kwakye - https://twitter.com/kwakyebrilliant
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- OpenAI for the GPT API
+- Flutter team for the amazing framework
+- Contributors and users of the app
