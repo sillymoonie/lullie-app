@@ -31,15 +31,30 @@ class AudioService extends ChangeNotifier {
   bool get isPlaying => audioPlayer.playing;
 
   void _initializeListeners() {
-    _playingSubscription = audioPlayer.playingStream.listen((playing) {
-      notifyListeners();
-    });
+    // Cancel existing subscriptions if they exist
+    _playingSubscription?.cancel();
+    _processingSubscription?.cancel();
 
-    _processingSubscription = audioPlayer.processingStateStream.listen((state) {
-      if (state == ProcessingState.completed) {
-        playNext();
-      }
-    });
+    // Setup new subscriptions with proper error handling
+    _playingSubscription = audioPlayer.playingStream.listen(
+      (playing) {
+        if (!_isDisposed) notifyListeners();
+      },
+      onError: (error) {
+        print('Error in playing stream: $error');
+      },
+    );
+
+    _processingSubscription = audioPlayer.processingStateStream.listen(
+      (state) {
+        if (!_isDisposed && state == ProcessingState.completed) {
+          playNext();
+        }
+      },
+      onError: (error) {
+        print('Error in processing stream: $error');
+      },
+    );
   }
 
   // Initialize the service and restore state
@@ -47,15 +62,13 @@ class AudioService extends ChangeNotifier {
     if (_isDisposed) return;
     
     try {
+      // Initialize statistics service first
       await _statisticsService.initialize();
+      
+      // Then restore state
       await restoreState();
       
-      // Setup stream listeners after initialization
-      if (!_isDisposed) {
-        audioPlayer.playingStream.listen((playing) {
-          if (!_isDisposed) notifyListeners();
-        });
-      }
+      // Don't set up stream listeners here since they're handled in _initializeListeners
     } catch (e) {
       print('Error initializing AudioService: $e');
     }
@@ -276,18 +289,22 @@ class AudioService extends ChangeNotifier {
       // Configure audio source with preloading
       final audioSource = AudioSource.uri(Uri.parse(audioUrl));
       
+      // Set the audio source first
       await audioPlayer.setAudioSource(
         audioSource,
         preload: true,
       ).timeout(const Duration(seconds: 5));
 
-      // Start playback immediately after source is set
-      await audioPlayer.play();
+      // Then start playback in a separate step
+      final playbackStarted = audioPlayer.play().then((_) => true).catchError((error) {
+        print('Error starting playback: $error');
+        return false;
+      });
       
       _isLoading = false;
       notifyListeners();
       
-      return true;
+      return await playbackStarted;
     } catch (e) {
       print('Error in startPlayback: $e');
       _isLoading = false;
